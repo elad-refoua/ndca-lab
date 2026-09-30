@@ -81,11 +81,32 @@ function statusBadge(status) {
   return h('span', { class: 'badge badge-muted' }, 'לא הורץ');
 }
 
-function describe(item) {
+// The gates write where a failure is and why in English (engine/gates.mjs); the page says the common ones in Hebrew
+// (added 2026-09-30, live QA: a G1 miss at stage 6 read "midpoints[2] A3 points[0]: not found verbatim in the interview").
+// Anything not recognised is shown as the gate wrote it.
+const REASON_HE = [
+  [/^empty quote$/, () => 'ציטוט ריק'],
+  [/^fewer than \d+ words/, () => 'פחות משלוש מילים: קטע כזה אינו ציטוט'],
+  [/^not found verbatim in the interview$/, (it) => `הציטוט לא נמצא מילה במילה בראיון${it.interview_id ? ` ${it.interview_id}` : ''}`],
+  [/^found only as a span that starts or ends inside a word/, () => 'נמצא רק כקטע שמתחיל או נגמר באמצע מילה'],
+  [/^found, but not inside a single answer turn/, () => 'נמצא, אבל לא בתוך תשובה אחת (בשאלת המראיין, או על פני כמה תשובות)'],
+];
+function whereHe(w) {
+  const s = String(w || '');
+  let m;
+  if ((m = /^units\[\d+\] (U\d+)$/.exec(s))) return `יחידה ${m[1]}`;
+  if ((m = /^results\[\d+\] (C\d+) evidence\[(\d+)\]$/.exec(s))) return `ניגוד ${m[1]}, עדות ${Number(m[2]) + 1}`;
+  if ((m = /^midpoints\[\d+\] (A\d+) points\[(\d+)\]$/.exec(s))) return `ציר ${m[1]}, נקודת אמצע ${Number(m[2]) + 1}`;
+  if ((m = /^sections\[(\d+)\]\.paragraphs\[(\d+)\]$/.exec(s))) return `חלק ${Number(m[1]) + 1}, פסקה ${Number(m[2]) + 1}`;
+  return s;
+}
+
+export function describe(item) {
   if (typeof item === 'string') return item;
   if (!item || typeof item !== 'object') return String(item);
-  const where = [item.stage !== undefined ? `שלב ${item.stage}` : '', item.where || item.path || ''].filter(Boolean).join(', ');
-  const what = item.reason || '';
+  const where = [item.stage !== undefined ? `שלב ${item.stage}` : '', whereHe(item.where || item.path || '')].filter(Boolean).join(', ');
+  const known = REASON_HE.find(([re]) => re.test(String(item.reason || '')));
+  const what = known ? known[1](item) : (item.reason || '');
   const q = item.quote ? ` "${item.quote}"` : (item.run ? ` "${item.run}"` : '');
   return `${where ? `${where}: ` : ''}${what}${q}` || JSON.stringify(item);
 }
