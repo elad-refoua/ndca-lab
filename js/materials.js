@@ -489,7 +489,8 @@ export function initMaterials(app) {
     const total = draft.interviews.reduce((n, x) => n + x.text.length, 0);
     if (total > lim.total) b.push(`סך כל הטקסט ארוך מ-${fmt(lim.total)} תווים.`);
     const open = allHits().filter((x) => !dismissed.has(x.key)).length;
-    if (open) b.push(`בבדיקת הפרטיות נשארו ${open} ממצאים: תקנו אותם, או סמנו שאינם מזהים.`);
+    if (open === 1) b.push('בבדיקת הפרטיות נשאר ממצא אחד: תקנו אותו, או סמנו שאינו מזהה.');
+    else if (open) b.push(`בבדיקת הפרטיות נשארו ${open} ממצאים: תקנו אותם, או סמנו שאינם מזהים.`);
     if (app.health && app.health.access_code_required && !hasAccessCode()) b.push('הקלידו את קוד הגישה.');
     if (!refs.consent.checked) b.push('סמנו את תיבת ההסכמה.');
     if (app.liveApi && app.liveApi.isBusy()) b.push('הרצה אחרת עדיין פועלת.');
@@ -678,6 +679,7 @@ export function initMaterials(app) {
     else where.append('הטקסטים נשלחו אל: ', prov);
     renderPrivacyAck($('#mat-privacy-ack'));
     if (app.live.done) st.textContent = 'הניתוח הסתיים. אפשר להוריד את הממצאים, ובסוף למחוק את ההרצה ואת הטקסטים.';
+    else if (app.live.ended === 'no_retained') st.textContent = 'הניתוח נעצר בנקודת עצירה א: אף ניגוד לא שרד, ולכן אין ממה לבנות צירים. אפשר להוריד את רשומת ההרצה, ובסוף למחוק את ההרצה ואת הטקסטים.';
     else if (app.live.awaiting === 'privacy') st.textContent = 'ההרצה ממתינה להחלטה שלכם על בדיקת הפרטיות. עד אז שום טקסט לא נשלח למודל.';
     else if (app.live.awaiting === 'A') st.textContent = 'ההרצה ממתינה לכם בנקודת עצירה א.';
     else if (app.live.awaiting === 'B') st.textContent = 'ההרצה ממתינה לכם בנקודת עצירה ב.';
@@ -687,6 +689,7 @@ export function initMaterials(app) {
     if (app.live.awaiting === 'A') actions.append(h('a', { class: 'btn btn-warm btn-sm', href: '#checkpoint-a' }, 'לנקודת עצירה א'));
     if (app.live.awaiting === 'B') actions.append(h('a', { class: 'btn btn-warm btn-sm', href: '#checkpoint-b' }, 'לנקודת עצירה ב'));
     if (app.live.done) actions.append(h('a', { class: 'btn btn-primary btn-sm', href: '#findings' }, 'לממצאים ולהורדה'));
+    if (app.live.ended === 'no_retained') actions.append(h('a', { class: 'btn btn-primary btn-sm', href: '#findings' }, 'להורדת רשומת ההרצה'));
     // while the privacy box is shown it holds the delete control itself: one delete button, not two
     if (app.live.awaiting !== 'privacy') actions.append(app.live.deleteControl('materials'));
   }

@@ -20,7 +20,9 @@ export function initFindings(app) {
 function renderActions(app) {
   const box = clear($('#findings-actions'));
   const m = app.model;
-  if (!m.s9) return;
+  // A live run that ended at checkpoint A (no pair survived stage 4) has no findings page, but its record can be kept.
+  const endedAtA = !m.s9 && app.mode === 'live' && app.live && app.live.ended === 'no_retained';
+  if (!m.s9 && !endedAtA) return;
   const status = h('p', { class: 'form-status', role: 'status', id: 'findings-status' });
   const dlHtml = h('button', { type: 'button', class: 'btn btn-ghost btn-sm', id: 'dl-findings' }, icon('download'), 'הורדת הממצאים (דף קריא להדפסה)');
   const dlJson = h('button', { type: 'button', class: 'btn btn-quiet btn-sm', id: 'dl-run-json' }, icon('download'), 'הורדת רשומת ההרצה (קובץ נתונים, JSON)');
@@ -38,7 +40,8 @@ function renderActions(app) {
     downloadJson({ corpus: m.corpus, run: record, chosen_names_on_screen: app.chosen }, `mabat-kaful-run-${runId}.json`);
     status.textContent = 'רשומת ההרצה הורדה.';
   });
-  box.append(dlHtml, dlJson);
+  if (endedAtA) box.append(h('p', { class: 'callout', id: 'findings-ended' }, 'הניתוח נעצר בנקודת עצירה א: אף ניגוד לא שרד את שלב 4, ולכן לא נבנו צירים ואין ממצאים. רשומת ההרצה, עד נקודת העצירה, זמינה להורדה.'), dlJson);
+  else box.append(dlHtml, dlJson);
   if (app.live && app.live.kind === 'custom' && app.live.deleteControl) box.append(app.live.deleteControl('findings'));
   box.append(status);
 }
@@ -48,7 +51,8 @@ function renderAxes(app) {
   const m = app.model;
   if (!m.hasStage(6)) {
     clear(box);
-    box.append(h('p', { class: 'callout' }, app.mode === 'live' ? 'מפת הצירים תופיע כשההרצה החיה תגיע לשלב 6.' : 'אין בקובץ ההרצה צירים.'));
+    const ended = app.mode === 'live' && app.live && app.live.ended === 'no_retained';
+    box.append(h('p', { class: 'callout' }, ended ? 'לא נבנו צירים: הניתוח נעצר בנקודת עצירה א.' : app.mode === 'live' ? 'מפת הצירים תופיע כשההרצה החיה תגיע לשלב 6.' : 'אין בקובץ ההרצה צירים.'));
     return;
   }
   const folds = openFolds(box);
@@ -186,7 +190,7 @@ function renderRelations(app) {
   const box = clear($('#relations'));
   const m = app.model;
   if (!m.s8) {
-    if (app.mode === 'live') box.append(h('p', { class: 'callout' }, 'מפת הקשרים תופיע כשההרצה החיה תגיע לשלב 8.'));
+    if (app.mode === 'live' && !(app.live && app.live.ended)) box.append(h('p', { class: 'callout' }, 'מפת הקשרים תופיע כשההרצה החיה תגיע לשלב 8.'));
     return;
   }
   const shown = diagramAxes(m).length;
@@ -222,8 +226,9 @@ function renderManuscript(app) {
   const box = clear($('#manuscript'));
   const s9 = app.model.s9;
   if (!s9) {
-    box.hidden = app.mode !== 'live';
-    if (app.mode === 'live') box.append(h('p', {}, 'הטקסט המסכם יופיע בסוף ההרצה החיה.'));
+    const ended = app.mode === 'live' && app.live && app.live.ended;
+    box.hidden = app.mode !== 'live' || Boolean(ended);
+    if (app.mode === 'live' && !ended) box.append(h('p', {}, 'הטקסט המסכם יופיע בסוף ההרצה החיה.'));
     return;
   }
   box.hidden = false;

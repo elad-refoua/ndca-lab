@@ -157,10 +157,17 @@ function renderA(app, { keepFocus = false } = {}) {
       h('p', {}, 'שלבים 5 עד 9 שמוצגים כאן הוקלטו בלי ההחלטה הזאת, ולכן ציר שנבנה מזוג כזה עדיין מופיע בהם, מסומן. כדי לראות את ההשפעה שלה צריך להריץ את השיטה מחדש.')));
   }
 
+  if (awaiting && !kept.length) {
+    // Nothing survived stage 4: there is nothing to build axes from, and the analysis ends at this checkpoint.
+    yours.append(h('div', { class: 'callout callout-warm', id: 'cpa-none-kept', role: 'note' },
+      h('p', {}, h('strong', {}, 'אף ניגוד לא שרד את שלב 4, ולכן הניתוח ייעצר כאן. '),
+        'שלב 5 בונה צירים רק מזוגות ששרדו. לפי המאמר (סעיף 8), כשכמעט כל הניגודים נופלים ייתכן שבחומר אין מספיק עומק דיאלקטי, למשל כשיש מעט ראיונות, או ראיונות קצרים. הרפלקציה שתכתבו כאן תישמר ברשומת ההרצה.')));
+  }
   if (awaiting) {
-    const submit = h('button', { type: 'button', class: 'btn btn-warm', id: 'cpa-submit', disabled: true }, 'שליחת ההחלטה והמשך ההרצה');
+    const none = !kept.length;
+    const submit = h('button', { type: 'button', class: 'btn btn-warm', id: 'cpa-submit', disabled: true }, none ? 'שליחת הרפלקציה וסיום הניתוח' : 'שליחת ההחלטה והמשך ההרצה');
     const liveStatus = h('p', { class: 'form-status', role: 'status' });
-    const hint = h('p', { class: 'small muted', style: { margin: 0 } }, 'כדי להמשיך צריך לכתוב רפלקציה, ולהשאיר לפחות זוג אחד שממנו ייבנו צירים.');
+    const hint = h('p', { class: 'small muted', style: { margin: 0 } }, none ? 'כדי לסיים צריך לכתוב רפלקציה.' : 'כדי להמשיך צריך לכתוב רפלקציה, ולהשאיר לפחות זוג אחד שממנו ייבנו צירים.');
     const refresh = () => {
       const removedCount = [...liveRemove.values()].filter((cb) => cb.checked).length;
       const tooMany = kept.length > 0 && removedCount >= kept.length;
@@ -223,7 +230,8 @@ function renderB(app) {
   const body = clear($('#cpb-body'));
   const m = app.model;
   if (!m.hasStage(7)) {
-    body.append(notYet(app.mode === 'live' ? 'ההרצה החיה עוד לא הגיעה לכאן. בחירת השמות תיפתח כשהסוכן בשלב 7 יציע אותם.' : 'אין בקובץ ההרצה פלט של שלב 7.'));
+    const ended = app.mode === 'live' && app.live && app.live.ended === 'no_retained';
+    body.append(notYet(ended ? 'הניתוח נעצר בנקודת עצירה א, ולכן אין צירים לתת להם שם.' : app.mode === 'live' ? 'ההרצה החיה עוד לא הגיעה לכאן. בחירת השמות תיפתח כשהסוכן בשלב 7 יציע אותם.' : 'אין בקובץ ההרצה פלט של שלב 7.'));
     return;
   }
   const live = app.mode === 'live';

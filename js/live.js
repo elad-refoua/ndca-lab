@@ -57,6 +57,17 @@ function overLimits(details) {
   return parts.join('; ');
 }
 
+// Stage 4 left no retained pair (or checkpoint A set every one aside): stage 5 has nothing to build axes from, and the
+// method ends the analysis there (added 2026-09-30, live QA: two short invented interviews on the free model).
+export const NO_RETAINED_TEXT = 'אף ניגוד לא נשאר אחרי שלב 4 ונקודת העצירה, ולכן אין ממה לבנות צירים: הניתוח נעצר כאן, כפי שהשיטה מורה. לפי המאמר (סעיף 8), כשכמעט כל הניגודים נופלים ייתכן שבחומר אין מספיק עומק דיאלקטי, למשל כשיש מעט ראיונות, או ראיונות קצרים.';
+
+/** How many retained stage-4 pairs remain once checkpoint A's `removed` ids are set aside. */
+export function retainedLeft(record, removed = []) {
+  const results = (record && record.stages && record.stages['4'] && record.stages['4'].output && record.stages['4'].output.results) || [];
+  const gone = new Set(removed || []);
+  return results.filter((x) => x && x.verdict === 'retained' && !gone.has(x.contrast_id)).length;
+}
+
 // The public demo's words for "a run this server no longer knows": it keeps runs in memory only.
 function forgottenText(code) {
   const memory = currentHealth && currentHealth.storage === 'memory';
@@ -120,6 +131,7 @@ export function plainError(status, data, path = '') {
   if (code === 'custom_corpus_disabled') return 'השרת הזה לא מקבל חומרים משלכם, רק את ההדגמה. ניתוח חומרים משלכם זמין בהתקנה מקומית.';
   if (code === 'consent_required') return 'צריך לסמן את תיבת ההסכמה לפני השליחה.';
   if (code === 'privacy_ack_required') return 'בדיקת הפרטיות של השרת ממתינה להחלטה שלכם לפני שהניתוח ממשיך.';
+  if (code === 'no_retained_contrasts') return NO_RETAINED_TEXT;
   if (status === 404 && /^\/api\/runs\//.test(path)) return forgottenText(code);
   if (status === 404) return 'השרת לא מכיר את הבקשה הזאת.';
   if (status === 409) return 'הפעולה לא מתאימה לשלב שבו הניתוח נמצא. רעננו את הדף ונסו שוב.';
@@ -514,6 +526,12 @@ export async function initLive(app, run) {
     } catch (e) {
       setBusy(false);
       if (e && e.forgotten) { forgotten(e); return; }
+      if (e && e.data && e.data.code === 'no_retained_contrasts') {
+        app.live.ended = 'no_retained';
+        app.setModel(corpus, liveRun);
+        endedAtA();
+        return;
+      }
       const more = e.detail ? h('details', { class: 'err-detail' }, h('summary', {}, 'פרטים טכניים'), h('code', { dir: 'ltr' }, e.detail)) : null;
       // A busy or unreachable model (502/503/504, a rate limit, a lost connection) is worth another try, and
       // the engine allows it: a failed stage records nothing, so the same stage is simply sent again. A daily
@@ -593,10 +611,22 @@ export async function initLive(app, run) {
     liveRun.checkpoints.A = { reflection, removed_contrast_ids, decided_by: 'human' };
     app.live.awaiting = null;
     app.live.draftReflection = '';
+    // No pair left to build axes from: the analysis ends at this checkpoint (the server would refuse stage 5).
+    const ended = retainedLeft(liveRun, removed_contrast_ids) === 0;
+    if (ended) app.live.ended = 'no_retained';
     app.setModel(corpus, liveRun);
     showRun();
     run.go('A');
+    if (ended) { endedAtA(); return; }
     loop();
+  }
+
+  function endedAtA() {
+    const custom = app.live && app.live.kind === 'custom';
+    const actions = h('span', { class: 'rc-group' },
+      custom ? h('a', { class: 'chip-btn', href: '#materials' }, 'להורדה ולמחיקה', icon('arrowDown')) : backBtn());
+    status(`${NO_RETAINED_TEXT} הרפלקציה שלכם נשמרה ברשומת ההרצה.${custom ? ` הטקסטים שלכם נשארים ${inServer()} עד שתמחקו אותם.` : ''}`, { actions });
+    progress({ ended: 'no_retained' });
   }
 
   async function submitB({ chosen }) {
