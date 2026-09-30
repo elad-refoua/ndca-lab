@@ -1,0 +1,211 @@
+/* The booklet page (decision D17): the code screen, then the booklet in the light design (DESIGN.md v2): a
+   table of contents, sections, one "page" per agent with its emblem, the prompts as left-to-right monospace
+   blocks with a copy button, and a print stylesheet. */
+
+.bk-top-spacer { flex: 1; }
+.bk-main {
+  display: block;
+  min-height: 70vh;
+  padding-block: calc(var(--head-h) + clamp(32px, 6vw, 72px)) clamp(64px, 8vw, 120px);
+  background: var(--bg);
+}
+.bk-kicker {
+  margin: 0 0 6px;
+  color: var(--warm-ink);
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .02em;
+}
+
+/* ---------- the code screen ---------- */
+.bk-gate-card {
+  max-width: 600px;
+  margin-inline: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 48px);
+}
+.bk-gate-card h1 { font-size: clamp(2.1rem, 5vw, 2.8rem); margin: 0 0 14px; }
+.bk-gate-lead { color: var(--text-2); margin: 0 0 26px; }
+.bk-form .field-label { display: block; margin-bottom: 8px; }
+.bk-form-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.bk-code { flex: 1 1 220px; min-width: 0; font-family: var(--f-mono); letter-spacing: .08em; }
+.bk-status { min-height: 1.6em; margin: 14px 0 6px; color: var(--text-2); }
+.bk-status.is-error { color: var(--warm-ink); }
+.bk-status .btn { margin-inline-start: 6px; }
+.bk-note { margin: 0; }
+
+/* ---------- the toolbar ---------- */
+.bk-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+.bk-toolbar .icon { width: 18px; height: 18px; }
+.bk-tool-status { margin: 0; flex-basis: 100%; color: var(--text-2); font-size: .92rem; min-height: 1.4em; }
+.bk-tool-status.is-error { color: var(--warm-ink); }
+
+/* ---------- layout: contents beside the text on wide screens ---------- */
+.bk-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+@media (min-width: 1024px) {
+  .bk-layout { grid-template-columns: 270px minmax(0, 1fr); gap: 56px; align-items: start; }
+  .bk-toc {
+    position: sticky;
+    top: calc(var(--head-h) + 24px);
+    max-height: calc(100vh - var(--head-h) - 48px);
+    overflow: auto;
+    padding-inline-end: 4px;
+  }
+}
+.bk-toc-fold { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); padding: 6px 14px 12px; }
+.bk-toc-fold > summary {
+  cursor: pointer;
+  list-style: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.bk-toc-fold > summary::-webkit-details-marker { display: none; }
+.bk-toc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.bk-toc-list a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 6px;
+  border-radius: var(--radius-xs);
+  color: var(--text);
+  text-decoration: none;
+  font-size: .92rem;
+  line-height: 1.35;
+}
+.bk-toc-list a:hover { background: #fff; color: var(--cool-ink); }
+.bk-toc-list .stage-chip { width: 22px; height: 22px; font-size: .7rem; flex: none; }
+
+/* ---------- the text ---------- */
+.bk-body { max-width: 760px; min-width: 0; }
+.bk-body p, .bk-body li { line-height: 1.75; }
+.bk-body code { font-family: var(--f-mono); font-size: .85em; background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; }
+.bk-cover { padding-bottom: 32px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
+.bk-cover h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 16px; }
+.bk-cover h1:focus { outline: none; }
+.bk-generated { margin-top: 12px; }
+.bk-section { margin-top: clamp(48px, 7vw, 80px); }
+.bk-section h2 { font-size: clamp(1.55rem, 3.2vw, 2rem); margin: 0 0 18px; }
+.bk-h { font-family: var(--f-body); font-size: 1.12rem; font-weight: 700; margin: 28px 0 8px; }
+.bk-list { padding-inline-start: 1.3em; }
+.bk-list li { margin-bottom: 6px; }
+.bk-note { margin: 18px 0; }
+.bk-note p { margin: 0; }
+
+/* one "page" per agent: a hairline in its hue, and its emblem */
+.bk-agent {
+  --hue: var(--cool);
+  border-top: 3px solid var(--hue);
+  padding-top: 24px;
+}
+.bk-agent-head { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+.bk-agent-head h2 { margin: 0; }
+.bk-emblem { flex: none; width: 76px; height: 76px; color: var(--hue); }
+.bk-emblem .emblem { width: 76px; height: 76px; }
+.bk-agent-kicker { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; }
+.booklet-page .stage-chip {
+  --hue: var(--cool);
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--hue);
+  color: color-mix(in srgb, var(--hue) 78%, #000);
+  font-family: var(--f-mono);
+  font-size: .78rem;
+  font-weight: 500;
+}
+.booklet-page .persona {
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  color: color-mix(in srgb, var(--hue) 78%, #000);
+}
+@media (max-width: 560px) {
+  .bk-agent-head { align-items: flex-start; gap: 12px; }
+  .bk-emblem, .bk-emblem .emblem { width: 56px; height: 56px; }
+}
+
+/* ---------- the prompts: left to right, monospace, copyable ---------- */
+.bk-prompt {
+  margin: 22px 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-tint);
+  overflow: hidden;
+}
+.bk-prompt-h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+.bk-prompt-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 260px; }
+.bk-prompt-title { font-weight: 700; }
+.bk-prompt .bk-file { align-self: flex-start; font-size: .8rem; }
+.bk-hash { font-size: .82rem; color: var(--text-3); }
+.bk-hash code { word-break: break-all; background: none; padding: 0; font-size: .95em; color: var(--text-2); }
+.bk-prompt-actions { display: flex; gap: 6px; flex: none; }
+.bk-copy .icon { width: 16px; height: 16px; }
+.bk-pre {
+  margin: 0;
+  padding: 16px 18px;
+  max-height: 26rem;
+  overflow: auto;
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+  font-family: var(--f-mono);
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+.bk-prompt.is-open .bk-pre { max-height: none; }
+.bk-pre:focus-visible { outline-offset: -3px; }
+
+/* ---------- print: the booklet only, every prompt in full ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  body.booklet-page { background: #fff; }
+  .skip-link, .topbar, .bk-gate, .bk-toolbar, .bk-prompt-actions, .footer, #live-region { display: none !important; }
+  .bk-main { padding: 0; min-height: 0; }
+  .bk-layout { display: block; }
+  .bk-toc { position: static; max-height: none; overflow: visible; margin-bottom: 12mm; break-after: page; }
+  .bk-toc-fold { border: none; background: none; padding: 0; }
+  .bk-toc-fold > summary { min-height: 0; margin-bottom: 4mm; }
+  .bk-toc-list a { min-height: 0; padding: 1px 0; font-size: 10pt; }
+  .bk-body { max-width: none; font-size: 11pt; }
+  .bk-body p, .bk-body li { line-height: 1.55; }
+  .bk-cover { break-after: page; border: none; }
+  .bk-agent { break-before: page; }
+  .bk-section h2, .bk-h { break-after: avoid; }
+  .bk-prompt { background: #fff; border-color: #bbb; overflow: visible; }
+  .bk-prompt-h { background: #fff; }
+  .bk-pre { max-height: none; overflow: visible; font-size: 8pt; line-height: 1.45; }
+  a { color: inherit; text-decoration: none; }
+}

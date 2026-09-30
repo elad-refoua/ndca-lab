@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>החוברת | מבט כפול</title>
+  <meta name="description" content="חוברת ההסבר של מבט כפול: השיטה בקצרה, תשעת הסוכנים, וההנחיות המלאות שכל סוכן מקבל. נפתחת בקוד גישה.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ffffff'/%3E%3Cpath d='M5 16h22' stroke='%2316181D' stroke-width='1.5'/%3E%3Ccircle cx='25' cy='16' r='3.5' fill='%23B86E0F'/%3E%3Ccircle cx='7' cy='16' r='3.5' fill='%233B4FD9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%2316181D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/cloud.css">
+  <link rel="stylesheet" href="css/booklet.css">
+  <script type="module" src="js/booklet.js"></script>
+</head>
+<body class="booklet-page">
+  <a class="skip-link" href="#main">דילוג לתוכן</a>
+
+  <header class="topbar" id="topbar">
+    <div class="demo-banner" id="demo-banner" hidden></div>
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="מבט כפול, חזרה לאתר">
+        <svg class="brand-mark" viewBox="0 0 44 16" aria-hidden="true"><path d="M5 8h34"/><circle cx="38" cy="8" r="3.5" class="w"/><circle cx="6" cy="8" r="3.5" class="c"/><circle cx="22" cy="8" r="1.8" class="m"/></svg>
+        <span>מבט כפול</span>
+      </a>
+      <span class="bk-top-spacer"></span>
+      <a class="nav-booklet" href="booklet.html" aria-current="page"><span class="icon" data-icon="bookOpen"></span><span>החוברת</span></a>
+    </div>
+  </header>
+
+  <main id="main" class="bk-main" tabindex="-1">
+    <!-- The code screen. The booklet itself comes from the server (POST /api/booklet), never from this site's files. -->
+    <section class="bk-gate wrap" id="bk-gate" aria-labelledby="bk-gate-title">
+      <div class="bk-gate-card">
+        <p class="bk-kicker">חוברת ההסבר</p>
+        <h1 id="bk-gate-title">החוברת</h1>
+        <p class="bk-gate-lead">השיטה בקצרה, תשעת הסוכנים, ומה כל אחד מהם מקבל, לא רואה ועושה. לכל סוכן: ההנחיה המלאה שהוא מקבל, מילה במילה, עם טביעת האצבע שלה. החוברת נפתחת למי שקיבל קוד גישה מהחוקרות.</p>
+        <form class="bk-form" id="bk-form" novalidate>
+          <label class="field-label" for="bk-code">הזינו קוד גישה</label>
+          <div class="bk-form-row">
+            <input class="tx bk-code" id="bk-code" name="booklet-code" type="password" autocomplete="off" spellcheck="false" maxlength="200" dir="ltr" required aria-describedby="bk-status">
+            <button type="submit" class="btn btn-primary" id="bk-open">פתיחת החוברת</button>
+          </div>
+          <p class="bk-status" id="bk-status" role="status" aria-live="polite"></p>
+          <p class="bk-note small muted" id="bk-code-note">הקוד נשמר רק בלשונית הזאת, עד שתסגרו אותה. החוברת לקריאה, להדפסה ולהורדה בלבד.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- The booklet, once opened -->
+    <div class="bk-doc" id="bk-doc" hidden>
+      <div class="bk-toolbar wrap" id="bk-toolbar" role="group" aria-label="פעולות על החוברת">
+        <button type="button" class="btn btn-ghost btn-sm" id="bk-print"><span class="icon" data-icon="printer"></span>הדפסה</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="bk-docx" hidden><span class="icon" data-icon="download"></span>הורדה כקובץ Word</button>
+        <button type="button" class="btn btn-quiet btn-sm" id="bk-lock"><span class="icon" data-icon="lock"></span>נעילת החוברת</button>
+        <p class="bk-tool-status" id="bk-tool-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="bk-layout wrap">
+        <nav class="bk-toc" id="bk-toc" aria-labelledby="bk-toc-title"></nav>
+        <article class="bk-body" id="bk-body"></article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <p class="footer-brand">
+          <svg class="brand-mark" viewBox="0 0 44 16" aria-hidden="true"><path d="M5 8h34"/><circle cx="38" cy="8" r="3.5" class="w"/><circle cx="6" cy="8" r="3.5" class="c"/><circle cx="22" cy="8" r="1.8" class="m"/></svg>
+          מבט כפול
+        </p>
+        <p>פרופ' גיא אנוש וטל אליוסף, אוניברסיטת חיפה. השיטה: ניתוח דיאלקטי-קונסטרוקטיביסטי בתשעה שלבים. המאמר על השיטה טרם פורסם.</p>
+        <p>זהו אב-טיפוס. הראיונות בהדגמה בדויים ואין בהם מידע על אנשים אמיתיים. שום תשובה לשאלונים אינה נשלחת.</p>
+      </div>
+      <div class="footer-a11y">
+        <h2 class="footer-h" id="a11y">הצהרת נגישות</h2>
+        <p>האתר נבנה בשאיפה לעמוד בתקן הישראלי 5568 (WCAG 2.0 ברמה AA): ניווט מלא במקלדת, סימון פוקוס גלוי, ניגודיות מספקת, טקסט חלופי לאיורים, הודעות לקוראי מסך על מעבר בין שלבים, וכבוד להגדרת הפחתת תנועה.</p>
+        <p>זהו אב-טיפוס שעדיין לא עבר בדיקת נגישות מלאה. ההצהרה עודכנה ב-30 בספטמבר 2026.</p>
+        <p class="a11y-pending" id="a11y-pending">פרטי רכז/ת הנגישות ודרך לפנות בנושאי נגישות עדיין חסרים כאן. הם יתווספו לפני פרסום רחב של האתר.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sr-only" aria-live="polite" id="live-region"></div>
+  <noscript><p class="noscript">החוברת צריכה JavaScript כדי להיפתח.</p></noscript>
+</body>
+</html>

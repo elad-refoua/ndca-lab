@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מבט כפול | ניתוח איכותני דיאלקטי בתשעה שלבים</title>
+  <meta name="description" content="אב-טיפוס: שיטת הניתוח הדיאלקטי-קונסטרוקטיביסטי של פרופ' גיא אנוש וטל אליוסף, כשכל שלב מבוצע בידי סוכן בינה מלאכותית ושלושה מהם עובדים בלי לראות את הראיונות.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ffffff'/%3E%3Cpath d='M5 16h22' stroke='%2316181D' stroke-width='1.5'/%3E%3Ccircle cx='25' cy='16' r='3.5' fill='%23B86E0F'/%3E%3Ccircle cx='7' cy='16' r='3.5' fill='%233B4FD9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%2316181D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/run.css">
+  <link rel="stylesheet" href="css/materials.css">
+  <link rel="stylesheet" href="css/cloud.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">דילוג לתוכן</a>
+
+  <header class="topbar" id="topbar">
+    <div class="demo-banner" id="demo-banner" hidden></div>
+    <div class="topbar-inner">
+      <a class="brand" href="#hero" aria-label="מבט כפול, חזרה לפתיחה">
+        <svg class="brand-mark" viewBox="0 0 44 16" aria-hidden="true"><path d="M5 8h34"/><circle cx="38" cy="8" r="3.5" class="w"/><circle cx="6" cy="8" r="3.5" class="c"/><circle cx="22" cy="8" r="1.8" class="m"/></svg>
+        <span>מבט כפול</span>
+      </a>
+      <nav class="progress" aria-label="חלקי האתר">
+        <ol class="progress-axis" id="progress-axis"></ol>
+        <p class="progress-current" id="progress-current" aria-hidden="true"></p>
+      </nav>
+      <a class="nav-booklet" id="nav-booklet" href="booklet.html"><span class="icon" data-icon="bookOpen"></span><span>החוברת</span></a>
+    </div>
+    <div class="topbar-fill" aria-hidden="true"></div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- 1. Hero -->
+    <section class="hero" id="hero" aria-labelledby="hero-title" data-nav="פתיחה">
+      <div class="hero-art" id="hero-art">
+        <img class="hero-img" id="hero-img" src="assets/img/hero.webp" width="1920" height="1280" decoding="async" fetchpriority="high"
+             alt="איור בדיו ובצבעי מים: ספר פתוח שמדפיו עולה שרשרת של תשעה עיגולים מחוברים, בכתום ובכחול">
+        <svg class="hero-fallback" id="hero-fallback" viewBox="0 0 640 420" aria-hidden="true"></svg>
+      </div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title">מבט כפול</h1>
+          <p class="hero-sub">ניתוח איכותני דיאלקטי בתשעה שלבים, שכל אחד מהם מבוצע בידי סוכן בינה מלאכותית. שלושה מהסוכנים עובדים בכוונה בלי לראות את הראיונות.</p>
+
+          <figure class="hero-axis" aria-label="שני קצוות: החוקרת, תובנה ופיקוח; הסוכנים, שיטתיות">
+            <div class="axis-line" aria-hidden="true">
+              <span class="pole pole-warm"></span>
+              <span class="pole pole-cool"></span>
+              <span class="dot" style="--p:.18;--d:1"></span>
+              <span class="dot" style="--p:.31;--d:2"></span>
+              <span class="dot" style="--p:.45;--d:3"></span>
+              <span class="dot" style="--p:.57;--d:4"></span>
+              <span class="dot" style="--p:.7;--d:5"></span>
+              <span class="dot" style="--p:.83;--d:6"></span>
+            </div>
+            <figcaption class="axis-poles">
+              <span class="pl warm"><strong>החוקרת</strong> תובנה ופיקוח</span>
+              <span class="pl cool"><strong>הסוכנים</strong> שיטתיות</span>
+            </figcaption>
+          </figure>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#run-controls">לצפייה בהרצה</a>
+            <a class="btn btn-ghost" href="#method">איך השיטה עובדת</a>
+          </div>
+          <p class="hero-own"><a href="#materials" id="hero-own-link">או לנתח ראיונות משלכם, על המחשב שלכם</a></p>
+
+          <p class="hero-credit">לפי השיטה של פרופ' גיא אנוש וטל אליוסף, אוניברסיטת חיפה. אב-טיפוס להדגמה; הראיונות בהדגמה בדויים.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The method -->
+    <section class="section method" id="method" aria-labelledby="method-title" data-nav="השיטה">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="method-title">תשעה שלבים, ושלושה רגעים של עיוורון מכוון</h2>
+          <div class="prose">
+            <p>רוב שיטות הניתוח האיכותני מבקשות מהחוקרת לשים לב למה שסותר את הפרשנות שלה. אבל סתירה שלא עולה על הדעת פשוט לא נראית. הניתוח הדיאלקטי-קונסטרוקטיביסטי בתשעה שלבים של פרופ' גיא אנוש וטל אליוסף הופך את הסדר: <strong>בונים את הניגוד מראש</strong>, מדמיינים במכוון את החלופה התאורטית לכל תווית, ורק אחר כך בודקים אם היא קיימת בנתונים.</p>
+            <p>ניגוד שנמצא בנתונים הופך לציר: רצף בין שני קצוות, שעליו אפשר למקם את עמדות המרואיינים ואת נקודות הביניים שלהן. התוצר הוא מפה של צירים והקשרים ביניהם, לא רשימת תמות.</p>
+          </div>
+        </header>
+
+        <div class="score" id="score">
+          <div class="score-legend" aria-hidden="true">
+            <span class="lg" data-sight="full">רואה את הראיונות</span>
+            <span class="lg" data-sight="partial">רואה קטעים בלבד</span>
+            <span class="lg" data-sight="none">לא רואה את הראיונות</span>
+            <span class="lg" data-sight="human">עצירה של החוקרת</span>
+          </div>
+          <div class="score-tabs" role="tablist" aria-label="תשעת השלבים" id="score-tabs"></div>
+          <div class="score-panel" role="tabpanel" id="score-panel" tabindex="0"></div>
+        </div>
+
+        <div class="blind-block" id="blind">
+          <figure class="blind-figure" id="blind-figure">
+            <img class="blind-img" id="blind-img" src="assets/img/blind.webp" width="1920" height="1280" loading="lazy" decoding="async"
+                 alt="איור: דפי ראיון בכתב יד מאחורי זכוכית חלבית, כך שאי אפשר לקרוא אותם; קו כחול דק חוצה לפניהם ועליו נקודה כתומה">
+            <div class="sealed sealed-art" aria-hidden="true">
+              <div class="sealed-docs"><span class="doc"></span><span class="doc"></span><span class="doc"></span></div>
+              <div class="sealed-glass"></div>
+            </div>
+          </figure>
+          <div class="blind-text">
+            <h3>למה הסוכן לא רואה?</h3>
+            <p class="blind-lead">לפי המאמר, מי שקרא את הראיונות מקרוב נושא את התוכן שלהם לכל צעד הבא, ומהלך שאמור להיות תאורטי הופך לתיאור של מה שזוכרים מהנתונים. לכן בשלבים 3, 5 ו-8 הסוכן עובד בלי לראות אותם (סעיף 5.1).</p>
+            <div class="prose">
+              <p>בשלב 3 בונים ניגודים מתוך התוויות בלבד. בשלב 5 בונים צירים מתוך הזוגות ששרדו, בלי הציטוטים שאישרו אותם. בשלב 8 ממפים קשרים מתוך שמות הצירים וההגדרות שלהם. הנתונים חוזרים בשלב שאחרי, ושם הבנייה נבחנת מולם.</p>
+              <p>חוקרת אנושית עושה את זה בתיקיות נפרדות או בימים נפרדים. כאן זה נאכף בקוד: הסוכן העיוור פשוט לא מקבל את הראיונות, ובדיקה אוטומטית מוודאת אחרי כל הרצה שאף רצף של שש מילים מהם לא הגיע אליו.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-block">
+          <div class="matrix-head">
+            <h3 id="matrix-title">מי רואה מה</h3>
+            <p class="muted">כל שורה היא סוכן, וכל עמודה היא סוג של חומר. נקודה מלאה: הסוכן מקבל את החומר הזה. <span id="matrix-source"></span></p>
+          </div>
+          <div class="table-scroll" role="region" aria-labelledby="matrix-title" tabindex="0">
+            <table class="matrix" id="sight-matrix"></table>
+          </div>
+        </div>
+
+        <div class="principles">
+          <h3 class="principles-title">שלושה עקרונות מחזיקים את תשעת השלבים</h3>
+          <ol class="principles-list">
+            <li>
+              <svg class="p-glyph" viewBox="0 0 96 28" aria-hidden="true"><path d="M4 14h88" class="g-line"/><circle cx="12" cy="14" r="5" class="g-cool"/><rect x="38" y="5" width="20" height="18" rx="4" class="g-sealed"/><path d="M42 18l12-8" class="g-slash"/><circle cx="84" cy="14" r="5" class="g-cool"/></svg>
+              <h4>ניתוק קוגניטיבי מכוון</h4>
+              <p>בשלבים 3, 5 ו-8 עובדים מקלט מופשט, תוויות, זוגות ושמות, בלי גישה לנתונים.</p>
+            </li>
+            <li>
+              <svg class="p-glyph" viewBox="0 0 96 28" aria-hidden="true"><path d="M12 22 C 30 0, 66 0, 84 22" class="g-arc"/><path d="M77 20l7 2 1-7" class="g-arc"/><circle cx="12" cy="22" r="4" class="g-cool"/><path d="M4 26h88" class="g-line"/></svg>
+              <h4>מעגלי עיגון</h4>
+              <p>כל בנייה תאורטית חוזרת לנתונים: שלב 4 בוחן את 3, שלב 6 בוחן את 5, שלב 9 בוחן את 7 ו-8.</p>
+            </li>
+            <li>
+              <svg class="p-glyph" viewBox="0 0 96 28" aria-hidden="true"><path d="M4 14h88" class="g-line"/><rect x="26" y="7" width="12" height="12" rx="2" class="g-warm" transform="rotate(45 32 13)"/><rect x="58" y="7" width="12" height="12" rx="2" class="g-warm" transform="rotate(45 64 13)"/></svg>
+              <h4>נקודות עצירה רפלקטיביות</h4>
+              <p>שתיים, וחובה: אחרי שלב 4 בוחנים מה שרד ומה נפל, ובתוך שלב 7 בוחרים את אוצר המילים התאורטי.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Consent + pre-questionnaire -->
+    <section class="section consent" id="consent" aria-labelledby="consent-title" data-nav="לפני שמתחילים">
+      <div class="wrap two-col">
+        <div class="col-text">
+          <h2 id="consent-title">לפני שמתחילים</h2>
+          <div class="prose">
+            <p>אם תרצו, אפשר לענות על כמה שאלות קצרות לפני הצפייה ואחריה. ההשתתפות רשות, ואפשר לדלג.</p>
+            <p><strong>שום דבר לא נשלח לשום מקום.</strong> התשובות נשמרות רק בדפדפן שלכם, תחת מזהה אנונימי אקראי. אפשר להוריד אותן כקובץ ולמחוק אותן בכל רגע.</p>
+          </div>
+          <p class="pid">המזהה האנונימי שלכם <bdi class="mono" id="pid">...</bdi></p>
+        </div>
+        <div class="col-form">
+          <form class="survey" id="pre-form" novalidate>
+            <div class="consent-box">
+              <label class="check">
+                <input type="checkbox" id="consent-check" name="consent" aria-describedby="consent-hint">
+                <span>קראתי את ההסבר כאן. אני מסכים/ה לענות על השאלות, בידיעה שהתשובות נשארות בדפדפן שלי בלבד.</span>
+              </label>
+              <p class="consent-hint" id="consent-hint">סמנו כדי לפתוח את השאלון. אפשר לקרוא את השאלות גם לפני כן.</p>
+            </div>
+            <fieldset class="survey-items" id="pre-items" disabled>
+              <legend>שאלון פתיחה <span class="temp-badge">שאלות זמניות - יוחלפו בשאלות של החוקרות</span></legend>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-warm" id="pre-save" disabled>שמירת התשובות</button>
+              <a class="btn btn-quiet" href="#corpus">דילוג להמשך</a>
+              <p class="form-status" id="pre-status" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. The corpus -->
+    <section class="section corpus" id="corpus" aria-labelledby="corpus-title" data-nav="הראיונות">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="corpus-title">הראיונות</h2>
+          <div class="prose">
+            <p class="invented-note" id="corpus-invented"></p>
+            <p id="corpus-description"></p>
+          </div>
+        </header>
+        <div class="rq">
+          <p class="rq-label">שאלת המחקר</p>
+          <p class="rq-text" id="corpus-rq"></p>
+        </div>
+        <div class="corpus-docs" id="corpus-docs"></div>
+      </div>
+    </section>
+
+    <!-- 5. The run -->
+    <section class="section run" id="run" aria-labelledby="run-title" data-nav="ההרצה">
+      <div class="wrap">
+        <header class="section-head run-head">
+          <div>
+            <h2 id="run-title">ההרצה</h2>
+            <div class="prose">
+              <p>תשעה סוכנים עובדים בזה אחר זה, וכל אחד רואה רק את מה שהשלב שלו מתיר. אפשר לצפות בהרצה מתחילתה, לעצור ולקפוץ לכל שלב. בשתי נקודות העצירה ההרצה ממתינה לחוקרת.</p>
+            </div>
+          </div>
+          <p class="source-chip" id="source-chip"></p>
+        </header>
+        <p class="fixture-banner" id="fixture-banner" hidden><span class="icon" data-icon="info"></span><span></span></p>
+
+        <div class="run-controls" id="run-controls" role="group" aria-label="שליטה בהרצה">
+          <div class="rc-group rc-transport">
+            <button type="button" class="icon-btn" id="rc-prev" aria-label="לשלב הקודם"><span class="icon" data-icon="chevronRight"></span></button>
+            <button type="button" class="icon-btn icon-btn-main" id="rc-play" aria-label="הפעלה"><span class="icon" data-icon="play"></span></button>
+            <button type="button" class="icon-btn" id="rc-next" aria-label="לשלב הבא"><span class="icon" data-icon="chevronLeft"></span></button>
+          </div>
+          <ol class="rc-steps" id="rc-steps" aria-label="קפיצה לשלב"></ol>
+          <details class="rc-more" id="rc-more" open>
+            <summary class="chip-btn rc-more-summary" id="rc-more-summary">אפשרויות</summary>
+            <div class="rc-group rc-options">
+              <div class="seg" role="radiogroup" aria-label="מהירות" id="rc-speed">
+                <button type="button" role="radio" aria-checked="false" data-speed="0.5">איטי</button>
+                <button type="button" role="radio" aria-checked="true" data-speed="1">רגיל</button>
+                <button type="button" role="radio" aria-checked="false" data-speed="2">מהיר</button>
+              </div>
+              <button type="button" class="chip-btn" id="rc-skip" aria-pressed="false"><span class="icon" data-icon="zap"></span>בלי אנימציה</button>
+              <button type="button" class="chip-btn live-btn" id="rc-live" hidden><span class="icon" data-icon="radio"></span>הרצה חיה של ההדגמה</button>
+            </div>
+          </details>
+        </div>
+        <div class="live-status" id="live-status" role="status" hidden></div>
+
+        <div class="run-stage">
+          <div class="run-side">
+            <div class="network-wrap" id="network-wrap">
+              <svg class="network" id="network" viewBox="0 0 800 640" role="group" aria-label="רשת תשעת הסוכנים סביב ארכיון הראיונות"></svg>
+            </div>
+            <div class="log" id="log" aria-hidden="true">
+              <div class="log-head"><span>יומן העבודה</span><span class="log-agent" id="log-agent"></span></div>
+              <div class="log-body" id="log-body"></div>
+            </div>
+          </div>
+          <div class="run-panel" id="run-panel" tabindex="-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Checkpoint A -->
+    <section class="section checkpoint" id="checkpoint-a" aria-labelledby="cpa-title" data-nav="עצירה א">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="cp-mark"><span class="cp-diamond" aria-hidden="true"></span>נקודת עצירה א, אחרי שלב 4</p>
+          <h2 id="cpa-title">מה שרד את המבחן, ומה זה אומר על ההנחות שלנו?</h2>
+          <div class="prose">
+            <p>הסוכן בשלב 4 חזר לראיונות וחיפש עדות לכל ניגוד שנבנה בעיוורון. עכשיו ההרצה עוצרת. לפי המאמר, דפוס ההישרדות הוא חלון להנחות של המנתח: ניגודים שנפלו נפלו לא פעם משום שלא דמיינו את החלופה ברצינות, כלומר היו עמדות קש. זה גם הרגע להניח בצד זוגות ששרדו אבל הם בעצם היפוך לוגי.</p>
+            <p class="cp-warning">שני סימני אזהרה מהמאמר: אם כמעט כל הניגודים שורדים, כנראה שהניתוק בשלב 3 לא נשמר. ואם כמעט כל הניגודים נפלו, ייתכן שבחומר אין את העומק הדיאלקטי שהשיטה מניחה (סעיף 8).</p>
+          </div>
+        </header>
+        <div id="cpa-body"></div>
+      </div>
+    </section>
+
+    <!-- 7. Checkpoint B -->
+    <section class="section checkpoint" id="checkpoint-b" aria-labelledby="cpb-title" data-nav="עצירה ב">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="cp-mark"><span class="cp-diamond" aria-hidden="true"></span>נקודת עצירה ב, בתוך שלב 7</p>
+          <h2 id="cpb-title">איזה שם מתאים לציר כולו?</h2>
+          <div class="prose">
+            <p>זה המהלך הטעון ביותר בתאוריה בכל השיטה. השם אינו תיאור של שני הקצוות אלא של הממד שביניהם, והוא צריך להתאים גם לנקודות האמצע. שם שמתאים רק לקצוות זיהה את הציר לא נכון.</p>
+            <p>בחרו שם לכל ציר מבין שלוש ההצעות של הסוכן, או כתבו שם משלכם. השם שתבחרו מופיע מיד בכל מקום בהמשך: במפת הקשרים, בממצאים ובטקסט המסכם.</p>
+          </div>
+        </header>
+        <div id="cpb-body"></div>
+      </div>
+    </section>
+
+    <!-- 8. Findings -->
+    <section class="section findings" id="findings" aria-labelledby="findings-title" data-nav="הממצאים">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="findings-title">הממצאים</h2>
+          <div class="prose">
+            <p>הממצא אינו הצירים עצמם, אלא מה שהצירים, יחד, מאפשרים לומר על שאלת המחקר. למטה: מפת הצירים עם נקודות האמצע שנמצאו בנתונים, הקשרים ביניהם, והטקסט המסכם של שלב 9. כל ציטוט פותח את הראיון במקום שבו הוא נאמר.</p>
+          </div>
+        </header>
+        <div class="findings-actions" id="findings-actions"></div>
+        <div class="axis-map" id="axis-map"></div>
+        <div class="relations" id="relations"></div>
+        <article class="manuscript" id="manuscript" aria-label="הטקסט המסכם של שלב 9"></article>
+      </div>
+    </section>
+
+    <!-- 9. Post-questionnaire -->
+    <section class="section post" id="post" aria-labelledby="post-title" data-nav="אחרי הצפייה">
+      <div class="wrap two-col">
+        <div class="col-text">
+          <h2 id="post-title">אחרי הצפייה</h2>
+          <div class="prose">
+            <p>אותן שאלות, ועוד שתיים. גם כאן הכול נשאר בדפדפן שלכם בלבד.</p>
+          </div>
+          <div class="data-actions">
+            <button type="button" class="btn btn-ghost" id="download-json"><span class="icon" data-icon="download"></span>הורדת כל התשובות (קובץ נתונים, JSON)</button>
+            <button type="button" class="btn btn-quiet" id="clear-data"><span class="icon" data-icon="trash"></span><span class="lbl">מחיקת התשובות מהדפדפן</span></button>
+            <p class="form-status" id="data-status" role="status"></p>
+          </div>
+        </div>
+        <div class="col-form">
+          <form class="survey" id="post-form" novalidate>
+            <fieldset class="survey-items" id="post-items">
+              <legend>שאלון סיום <span class="temp-badge">שאלות זמניות - יוחלפו בשאלות של החוקרות</span></legend>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-warm" id="post-save">שמירת התשובות</button>
+              <p class="form-status" id="post-status" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Your own materials (ARCHITECTURE 5.3) -->
+    <section class="section materials" id="materials" aria-labelledby="materials-title" data-nav="החומרים שלכם">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="materials-title">החומרים שלכם</h2>
+          <div class="prose">
+            <p id="materials-lead">אותם תשעה סוכנים ואותן שתי עצירות, על ראיונות שלכם. הטקסטים עוברים רק דרך שרת שרץ על המחשב שלכם, אל ספק המודל שמופיע על המסך, ונשמרים רק אצלכם עד שתמחקו אותם.</p>
+          </div>
+        </header>
+        <div id="materials-body"></div>
+        <p class="sr-only" id="mat-announce" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 11. Under the hood -->
+    <section class="section hood" id="hood" aria-labelledby="hood-title" data-nav="מאחורי הקלעים">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 id="hood-title">מאחורי הקלעים</h2>
+          <div class="prose">
+            <p>המאמר רואה בשרשרת הקלטים והפלטים את מסלול הביקורת של השיטה: אפשר לזהות בדיוק איפה נכנסה כל פרשנות. כאן המכונה מתעדת אותו. כל קריאה למודל נרשמת עם המודל, טביעת האצבע של ההנחיה שקיבל, האם ראה נתונים, משך הזמן ומספר הניסיונות. אחרי ההרצה שלוש בדיקות אוטומטיות בודקות אותה מחדש.</p>
+          </div>
+        </header>
+        <div class="run-meta" id="run-meta"></div>
+        <h3 class="hood-h">תיעוד כל קריאה למודל</h3>
+        <div class="table-scroll" id="prov-table-wrap"></div>
+        <p class="hood-sub prov-explain" id="prov-explain"></p>
+        <h3 class="hood-h">בדיקות אוטומטיות</h3>
+        <div class="gates" id="gates"></div>
+        <h3 class="hood-h">ההנחיות שהסוכנים קיבלו: שמות וטביעות אצבע</h3>
+        <p class="hood-sub">ההנחיה לכל קריאה מורכבת משלוש שכבות לפי הסדר: שכבה כללית שאף שלב אינו יכול להסיר, שכבת השלב, ושכבת המחקר. ההנחיות מוחזקות בשרת, והדפדפן אינו יכול לשנות אותן. כאן מופיעים שם כל שכבה וטביעת האצבע שלה. הטקסט המלא של כל הנחיה נמצא <a href="booklet.html">בחוברת</a>, שנפתחת בקוד גישה, ולידו אותה טביעת אצבע: כך אפשר לוודא שכל סוכן קיבל בדיוק את ההנחיה שבחוברת.</p>
+        <div class="prompts" id="prompts"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-about">
+        <p class="footer-brand">
+          <svg class="brand-mark" viewBox="0 0 44 16" aria-hidden="true"><path d="M5 8h34"/><circle cx="38" cy="8" r="3.5" class="w"/><circle cx="6" cy="8" r="3.5" class="c"/><circle cx="22" cy="8" r="1.8" class="m"/></svg>
+          מבט כפול
+        </p>
+        <p>פרופ' גיא אנוש וטל אליוסף, אוניברסיטת חיפה. השיטה: ניתוח דיאלקטי-קונסטרוקטיביסטי בתשעה שלבים. המאמר על השיטה טרם פורסם.</p>
+        <p>זהו אב-טיפוס. הראיונות בהדגמה בדויים ואין בהם מידע על אנשים אמיתיים. שום תשובה לשאלונים אינה נשלחת.</p>
+      </div>
+      <div class="footer-a11y">
+        <h2 class="footer-h" id="a11y">הצהרת נגישות</h2>
+        <p>האתר נבנה בשאיפה לעמוד בתקן הישראלי 5568 (WCAG 2.0 ברמה AA): ניווט מלא במקלדת, סימון פוקוס גלוי, ניגודיות מספקת, טקסט חלופי לאיורים, הודעות לקוראי מסך על מעבר בין שלבים, וכבוד להגדרת הפחתת תנועה.</p>
+        <p>זהו אב-טיפוס שעדיין לא עבר בדיקת נגישות מלאה. ההצהרה עודכנה ב-30 בספטמבר 2026.</p>
+        <p class="a11y-pending" id="a11y-pending">פרטי רכז/ת הנגישות ודרך לפנות בנושאי נגישות עדיין חסרים כאן. הם יתווספו לפני פרסום רחב של האתר.</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="reader" id="reader" aria-labelledby="reader-title">
+    <div class="reader-head">
+      <h2 id="reader-title">ראיון</h2>
+      <button type="button" class="icon-btn" id="reader-close" aria-label="סגירה"><span class="icon" data-icon="x"></span></button>
+    </div>
+    <div class="reader-tabs" role="tablist" aria-label="בחירת ראיון" id="reader-tabs"></div>
+    <p class="reader-note" id="reader-note" role="status"></p>
+    <div class="reader-body" id="reader-body" role="tabpanel" tabindex="0"></div>
+  </dialog>
+
+  <div class="sr-only" aria-live="polite" id="live-region"></div>
+  <noscript><p class="noscript">האתר צריך JavaScript כדי להציג את ההרצה.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,174 @@
+/* The public site's parts (decisions D16, D17): the demo banner in the top bar, the booklet link, the prompt
+   layers by fingerprint under the hood, the public-demo note and the waking card in "your own materials".
+   Shared by index.html and booklet.html. */
+
+/* ---------- the demo banner: calm amber, inside the fixed top bar ---------- */
+.demo-banner {
+  background: var(--warm-wash);
+  border-bottom: 1px solid color-mix(in srgb, var(--warm) 22%, #fff);
+  color: var(--text);
+  font-size: .95rem;
+}
+.demo-banner[data-kind="replay"] {
+  background: var(--bg-soft);
+  border-bottom-color: var(--line);
+}
+.db-inner {
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 8px var(--gutter);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.demo-banner[data-state="closed"] .db-inner { align-items: center; padding-block: 2px; }
+.db-icon { width: 20px; height: 20px; margin-top: 3px; color: var(--warm-ink); }
+.demo-banner[data-state="closed"] .db-icon { margin-top: 0; }
+.demo-banner[data-kind="replay"] .db-icon { color: var(--text-3); }
+.db-text { flex: 1; min-width: 0; }
+.db-lead { margin: 0; line-height: 1.55; max-width: 72em; }
+.db-lead strong { font-weight: 700; }
+.db-short { margin: 0; line-height: 1.45; }
+.db-short-narrow { display: none; }
+@media (max-width: 560px) {
+  .db-short-wide { display: none; }
+  .db-short-narrow { display: inline; }
+}
+.db-why { margin-top: 2px; }
+.db-why > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  cursor: pointer;
+  color: var(--warm-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  list-style: none;
+}
+.demo-banner[data-kind="replay"] .db-why > summary { color: var(--text-2); }
+.db-why > summary::-webkit-details-marker { display: none; }
+.db-why-body { padding: 2px 0 8px; max-width: 64em; color: var(--text-2); font-size: .92rem; }
+.db-why-body p { margin: 0 0 6px; line-height: 1.6; }
+.db-toggle {
+  flex: none;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-2);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.db-toggle:hover { background: rgba(22, 24, 29, .05); color: var(--text); }
+@media (max-width: 767px) {
+  .demo-banner { font-size: .88rem; }
+  .db-inner { gap: 8px; position: relative; }
+  .db-icon { width: 18px; height: 18px; }
+  .db-toggle { padding: 0 8px; }
+  /* open: the text takes the whole width, and the fold button sits on the line of "למה?" */
+  .demo-banner[data-state="open"] .db-toggle {
+    position: absolute;
+    inset-inline-end: calc(var(--gutter) - 8px);
+    bottom: 2px;
+    min-height: 40px;
+  }
+  .demo-banner[data-state="open"]:has(.db-why[open]) .db-toggle { position: static; align-self: flex-end; }
+  .demo-banner[data-state="open"] .db-why > summary { min-height: 40px; }
+}
+
+/* ---------- the booklet link in the top bar ---------- */
+.nav-booklet {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-booklet:hover { border-color: var(--cool); color: var(--cool-ink); }
+.nav-booklet[aria-current="page"] { border-color: var(--cool); color: var(--cool-ink); background: var(--cool-soft); }
+.nav-booklet .icon { width: 18px; height: 18px; color: var(--cool); }
+@media (max-width: 767px) {
+  .topbar-inner { gap: 12px; }
+  .nav-booklet { padding: 0 11px; font-size: .9rem; }
+}
+
+/* ---------- the axis spinner, outside the run's status line ---------- */
+.spinner {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 44px;
+  height: 8px;
+  margin-inline-end: 10px;
+  vertical-align: middle;
+  background: linear-gradient(var(--line-2), var(--line-2)) center / 100% 1px no-repeat;
+}
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cool);
+  animation: travel 1.2s var(--ease) infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner::after { animation: none; inset-inline-start: calc(50% - 3px); }
+}
+
+/* ---------- your own materials, on the public demo ---------- */
+.mat-public { margin: 0 0 20px; }
+.mat-public p { margin: 0 0 6px; }
+.mat-public p:last-child { margin-bottom: 0; }
+.mat-waking p { margin: 0 0 6px; }
+
+/* ---------- under the hood: the prompt layers by fingerprint ---------- */
+.layer-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.layer {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+.layer-h { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.layer-h .ttl { display: flex; flex-direction: column; min-width: 0; }
+.layer-h .ttl small { color: var(--text-3); font-family: var(--f-mono); font-size: .78rem; }
+.layer-hash { margin: 8px 0 4px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.layer-hash .lbl { color: var(--text-3); font-size: .85rem; }
+.layer-hash .hash {
+  font-family: var(--f-mono);
+  font-size: .8rem;
+  color: var(--text);
+  word-break: break-all;
+  unicode-bidi: isolate;
+}
+.layer-notes { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .88rem; color: var(--text-2); }
+.layer-notes span { display: inline-flex; align-items: center; gap: 4px; }
+.layer-notes .ok { color: var(--ok); }
+.layer-notes .warn { color: var(--warm-ink); }
+.layer-link { font-weight: 600; }
+
+/* ---------- the accessibility statement's missing details ---------- */
+.a11y-pending {
+  border-inline-start: 3px solid var(--warm);
+  padding-inline-start: 10px;
+}
+
+@media print {
+  .demo-banner, .nav-booklet { display: none !important; }
+}
