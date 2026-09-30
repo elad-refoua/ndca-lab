@@ -19,6 +19,8 @@ and sees only what that step allows; the researcher decides at two checkpoints, 
 
 ## Credits
 
-The method: Prof. Guy Enosh and Tal Eliosef. Prototype prepared for them by Elad Refoua.
+The method: Prof. Guy Enosh and Tal Eliosef (University of Haifa).
+
+This site and its nine AI agents were designed and built by **Elad Refoua**.
 
 This repository holds only the static files of the site.

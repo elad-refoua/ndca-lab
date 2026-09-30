@@ -125,7 +125,7 @@ export function buildFindingsHtml(app) {
 </head>
 <body>
 <main>
-  <p class="meta">מבט כפול: ניתוח דיאלקטי-קונסטרוקטיביסטי בתשעה שלבים (אב-טיפוס), לפי השיטה של פרופ' גיא אנוש וטל אליוסף</p>
+  <p class="meta">מבט כפול: ניתוח דיאלקטי-קונסטרוקטיביסטי בתשעה שלבים (אב-טיפוס), לפי השיטה של פרופ' גיא אנוש וטל אליוסף. את האתר בנה ויצר אלעד רפואה</p>
   <h1>${withNames(s9.title || 'ממצאים', app)}</h1>
   <p class="meta">הרצה <span class="id">${esc(run.run_id || '')}</span>, ${esc(run.provider || '')} / ${esc(run.model || '')}, הורד ${esc(nowIso.slice(0, 10))}${gateLine ? `, בדיקות: ${gateLine}` : ''}</p>
   <p class="note-box">${custom
