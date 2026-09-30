@@ -170,6 +170,21 @@ export function plural(n, one, many) {
   return Number(n) === 1 ? one : `${n} ${many}`;
 }
 
+// Where a wording signal was found (engine/signals.mjs writes "A7 point 1", "relation A1-A3", "structure_note"...),
+// in the page's Hebrew. Anything not recognised is shown as it is.
+export function signalWhere(where) {
+  const w = String(where || '');
+  let m;
+  if ((m = /^(A\d+) note$/.exec(w))) return `ציר ${m[1]}, ההערה על הציר`;
+  if ((m = /^(A\d+) point (\d+)$/.exec(w))) return `ציר ${m[1]}, נקודת אמצע ${m[2]}`;
+  if ((m = /^relation (A\d+)-(A\d+)$/.exec(w))) return `הקשר בין ${m[1]} ל-${m[2]}`;
+  if ((m = /^consolidation (.+)$/.exec(w))) return `האיחוד של ${m[1].split('+').join(', ')}`;
+  if (w === 'structure_note') return 'הערת המבנה';
+  if (w === 'reflexive_check') return 'הבדיקה הרפלקסיבית';
+  if ((m = /^section (\d+) paragraph (\d+) (claim|analysis)$/.exec(w))) return `חלק ${m[1]}, פסקה ${m[2]}, ${m[3] === 'claim' ? 'הטענה' : 'הניתוח'}`;
+  return w;
+}
+
 export function fmtDate(iso) {
   if (!iso) return '';
   const d = new Date(iso);

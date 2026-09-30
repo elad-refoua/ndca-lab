@@ -1,7 +1,7 @@
 // Checkpoint A (after stage 4) and checkpoint B (within stage 7): paper section 5.3.
 // Replay: the recorded decision is shown; the viewer's own reflection, set-aside pairs and name
 // choices stay in this browser. Live: the same views submit the decision to the local server.
-import { $, $$, h, clear, store, debounce, announce } from './util.js';
+import { $, $$, h, clear, store, debounce, announce, signalWhere } from './util.js';
 import { icon } from './icons.js';
 import { resultItem, axisGraphic } from './views.js';
 import { axisNameSpan } from './model.js';
@@ -248,7 +248,7 @@ function renderB(app) {
   // Stage-6 notes that name a psychological mechanism or read a difference as development (engine/signals.mjs).
   const w6 = st(6) && st(6).overclaim_wording;
   if (w6 && (w6.mechanism || w6.development)) {
-    const where = [...(w6.mechanism_hits || []), ...(w6.development_hits || [])].map((x) => `${x.where} ("${x.term}")`).join('; ');
+    const where = [...(w6.mechanism_hits || []), ...(w6.development_hits || [])].map((x) => `${signalWhere(x.where)} ("${x.term}")`).join('; ');
     body.append(h('p', { class: 'callout callout-cool small' },
       `בהערות של שלב 6, שעליהן נשענים השמות: מונחים של מנגנון פסיכולוגי ${w6.mechanism}, ניסוח של התפתחות ${w6.development}. ${where}.`));
   }

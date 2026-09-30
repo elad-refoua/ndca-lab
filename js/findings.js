@@ -1,6 +1,6 @@
 // Findings: the axis map (stages 5-7), the relations among axes (stage 8), the integrated text (stage 9),
 // and the downloads (a readable findings page and the run record).
-import { $, h, s, clear, downloadBlob, downloadJson, safeName } from './util.js';
+import { $, h, s, clear, downloadBlob, downloadJson, safeName, signalWhere } from './util.js';
 import { icon } from './icons.js';
 import { axisGraphic, pointList, relationItem, statusBadge } from './views.js';
 import { marked, axisNameSpan } from './model.js';
@@ -260,7 +260,7 @@ function renderManuscript(app) {
   const w = run && run.stages && run.stages['9'] && run.stages['9'].signals && run.stages['9'].signals.overclaim_wording;
   if (w && w.stage9) {
     const n = (x) => (x ? x.mechanism + x.development : 0);
-    const hits9 = [...(w.stage9.mechanism_hits || []), ...(w.stage9.development_hits || [])].map((x) => `${x.where} ("${x.term}")`).join('; ');
+    const hits9 = [...(w.stage9.mechanism_hits || []), ...(w.stage9.development_hits || [])].map((x) => `${signalWhere(x.where)} ("${x.term}")`).join('; ');
     box.append(h('p', { class: 'callout callout-cool small' },
       n(w.stage9) + n(w.stage6) + n(w.stage8)
         ? `מה הקוד סימן בניסוח: בטקסט הזה מונחים של מנגנון פסיכולוגי ${w.stage9.mechanism} וניסוח של התפתחות ${w.stage9.development}${hits9 ? ` (${hits9})` : ''}; בהערות של שלב 6: ${n(w.stage6)}; במפה של שלב 8: ${n(w.stage8)}. הבדל בין משתתפות אינו התפתחות, ומנגנון פסיכולוגי אינו תיאור של מה שנאמר.`
