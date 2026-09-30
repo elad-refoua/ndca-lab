@@ -102,8 +102,9 @@ function gateDetails(key, g) {
   } else if (key === 'G2') {
     Object.entries(per).forEach(([st, v]) => {
       const ran = v.ran !== false;
-      ul.append(h('li', { class: ran ? '' : 'warn' }, icon(ran ? 'check' : 'alert'), ran ? `שלב ${st}: הקלט נבדק (${v.calls ?? 1} קריאות)` : `שלב ${st}: לא רץ`));
+      ul.append(h('li', { class: ran ? '' : 'warn' }, icon(ran ? 'check' : 'alert'), ran ? `שלב ${st}: הקלט נבדק (${plural(v.calls ?? 1, 'קריאה אחת', 'קריאות')})` : `שלב ${st}: לא רץ`));
     });
+    if (Number(c.failed_calls_checked) > 0) ul.append(h('li', {}, icon('check'), plural(c.failed_calls_checked, 'קריאה אחת שנכשלה בשלב עיוור: גם הקלט שלה נבדק', 'קריאות שנכשלו בשלבים העיוורים: גם הקלט שלהן נבדק')));
     if (c.strings_checked !== undefined) ul.append(h('li', {}, icon('check'), `${c.strings_checked} מחרוזות נבדקו מול ${c.corpus_runs} רצפים של שש מילים מהראיונות`));
   } else if (key === 'G3' && c.units !== undefined) {
     ul.append(h('li', {}, icon('check'), `${plural(c.units, 'יחידה אחת', 'יחידות')}, ${plural(c.labels, 'תווית אחת', 'תוויות')}, ${plural(c.contrasts, 'ניגוד אחד', 'ניגודים')}, ${plural(c.results, 'תוצאה אחת', 'תוצאות')}`));

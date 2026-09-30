@@ -13,9 +13,10 @@ import { icon } from './icons.js';
 
 const KEY = 'mabat-kaful:banner';
 
-/** "Gemini Flash" for any flash model (the words the banner uses), otherwise the model id itself. */
+/** "Gemini Flash Lite" / "Gemini Flash" for those families (the words the banner uses), otherwise the model id itself. */
 export function modelWords(health) {
   const m = String((health && health.model) || '');
+  if (/flash-lite/i.test(m)) return 'Gemini Flash Lite';
   return /flash/i.test(m) ? 'Gemini Flash' : (m || 'Gemini');
 }
 

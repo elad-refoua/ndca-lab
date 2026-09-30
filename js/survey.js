@@ -119,7 +119,7 @@ export function initSurvey(app) {
     const ok = save();
     const missing = Object.values(participant.pre.answers).filter((v) => v === null).length;
     setStatus($('#pre-status'), ok
-      ? `נשמר בדפדפן שלך.${missing ? ` ${missing} שאלות נשארו בלי תשובה.` : ''}`
+      ? `נשמר בדפדפן שלכם.${missing === 1 ? ' שאלה אחת נשארה בלי תשובה.' : missing ? ` ${missing} שאלות נשארו בלי תשובה.` : ''}`
       : 'הדפדפן חוסם שמירה מקומית. אפשר עדיין להוריד את התשובות כקובץ.', !ok);
   });
 
@@ -131,7 +131,7 @@ export function initSurvey(app) {
       saved_at: new Date().toISOString(),
     };
     const ok = save();
-    setStatus($('#post-status'), ok ? 'נשמר בדפדפן שלך. תודה.' : 'הדפדפן חוסם שמירה מקומית. אפשר עדיין להוריד את התשובות כקובץ.', !ok);
+    setStatus($('#post-status'), ok ? 'נשמר בדפדפן שלכם. תודה.' : 'הדפדפן חוסם שמירה מקומית. אפשר עדיין להוריד את התשובות כקובץ.', !ok);
   });
 
   $('#download-json').addEventListener('click', () => {
@@ -146,7 +146,7 @@ export function initSurvey(app) {
       set_aside_at_checkpoint_a: app.mode === 'replay' ? [...app.setAside] : null,
     };
     downloadJson(payload, `mabat-kaful-${participant.participant_id}.json`);
-    setStatus($('#data-status'), 'הקובץ הורד למחשב שלך.');
+    setStatus($('#data-status'), 'הקובץ הורד למחשב שלכם.');
   });
 
   // Deleting the answers asks first, in a row with its own confirm and cancel (no time limit).

@@ -678,9 +678,9 @@ export function initMaterials(app) {
     else where.append('הטקסטים נשלחו אל: ', prov);
     renderPrivacyAck($('#mat-privacy-ack'));
     if (app.live.done) st.textContent = 'הניתוח הסתיים. אפשר להוריד את הממצאים, ובסוף למחוק את ההרצה ואת הטקסטים.';
-    else if (app.live.awaiting === 'privacy') st.textContent = 'ההרצה ממתינה להחלטה שלך על בדיקת הפרטיות. עד אז שום טקסט לא נשלח למודל.';
-    else if (app.live.awaiting === 'A') st.textContent = 'ההרצה ממתינה לך בנקודת עצירה א.';
-    else if (app.live.awaiting === 'B') st.textContent = 'ההרצה ממתינה לך בנקודת עצירה ב.';
+    else if (app.live.awaiting === 'privacy') st.textContent = 'ההרצה ממתינה להחלטה שלכם על בדיקת הפרטיות. עד אז שום טקסט לא נשלח למודל.';
+    else if (app.live.awaiting === 'A') st.textContent = 'ההרצה ממתינה לכם בנקודת עצירה א.';
+    else if (app.live.awaiting === 'B') st.textContent = 'ההרצה ממתינה לכם בנקודת עצירה ב.';
     else st.textContent = `בעבודה: ${done.size} מתוך 11 צעדים הושלמו.`;
     const actions = clear($('#mat-run-actions'));
     actions.append(h('a', { class: 'btn btn-ghost btn-sm', href: '#run' }, 'למעקב בהרצה'));

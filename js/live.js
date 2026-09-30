@@ -268,6 +268,12 @@ export async function advanceWithRecovery({ stage, post, get, sleep, pollMs = AD
   }
 }
 
+/** A Hebrew one-letter prefix (ל, ב, מ...) glued to a word: with a maqaf before a Latin letter or a digit ("ל-Google"). */
+export function hePrefix(prefix, word) {
+  const w = String(word || '');
+  return /^[A-Za-z0-9]/.test(w) ? `${prefix}-${w}` : `${prefix}${w}`;
+}
+
 // What the consent line names: the provider and mode the local server reports.
 export function providerLabel(hh) {
   if (!hh) return '';
@@ -483,8 +489,8 @@ export async function initLive(app, run) {
           run.go(key);
           const link = h('a', { class: 'chip-btn', href: key === 'A' ? '#checkpoint-a' : '#checkpoint-b' }, 'לנקודת העצירה', icon('arrowDown'));
           status(key === 'A'
-            ? 'ההרצה ממתינה לך: עברו על הניגודים ששרדו, כתבו רפלקציה, והחליטו אם להניח זוגות בצד.'
-            : 'ההרצה ממתינה לך: בחרו שם לכל ציר.', { actions: link });
+            ? 'ההרצה ממתינה לכם: עברו על הניגודים ששרדו, כתבו רפלקציה, והחליטו אם להניח זוגות בצד.'
+            : 'ההרצה ממתינה לכם: בחרו שם לכל ציר.', { actions: link });
           setBusy(false);
           progress();
           return;
@@ -827,7 +833,7 @@ export async function initLive(app, run) {
     });
     cancel.addEventListener('click', () => status(''));
     const freeTier = !!(app.health && app.health.public_demo);
-    status(`הרצה חיה שולחת את הראיונות הבדויים ל${providerLabel(app.health)} דרך ${serverName()}, ועשויה להימשך כמה דקות.${freeTier ? ' למודל החינמי יש מגבלת בקשות לדקה וליום, ולכן לפעמים צריך לחכות בין שלבים.' : ''}`,
+    status(`הרצה חיה שולחת את הראיונות הבדויים ${hePrefix('ל', providerLabel(app.health))} דרך ${serverName()}, ועשויה להימשך כמה דקות.${freeTier ? ' למודל החינמי יש מגבלת בקשות לדקה וליום, ולכן לפעמים צריך לחכות בין שלבים.' : ''}`,
       { actions: h('span', { class: 'rc-group' }, code ? code.wrap : null, go, cancel) });
   });
 

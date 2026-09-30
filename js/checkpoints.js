@@ -65,7 +65,7 @@ function factsA(m) {
   ];
   return h('div', { class: 'callout callout-cool cpa-facts' },
     h('h3', {}, 'מה הקוד ספר, בלי פרשנות'),
-    h('p', { class: 'small muted' }, 'עובדות שחושבו מההרצה עצמה, לצד הקריאה של הסוכן. הן מראות איפה כדאי להסתכל; ההחלטה שלך.'),
+    h('p', { class: 'small muted' }, 'עובדות שחושבו מההרצה עצמה, לצד הקריאה של הסוכן. הן מראות איפה כדאי להסתכל; ההחלטה שלכם.'),
     h('ul', {}, items.map((t) => h('li', {}, t))));
 }
 
@@ -121,7 +121,7 @@ function renderA(app, { keepFocus = false } = {}) {
   if (m.cpA) {
     const removed = m.cpA.removed_contrast_ids || [];
     lower.append(h('div', { class: 'voice voice-human' },
-      h('h3', {}, icon('user'), live ? 'ההחלטה שלך' : 'מה החליטה החוקרת בהרצה הזאת'),
+      h('h3', {}, icon('user'), live ? 'ההחלטה שלכם' : 'מה החליטה החוקרת בהרצה הזאת'),
       h('p', {}, removed.length ? ['הונח בצד: ', removed.map((id, i) => [i ? '; ' : '', pairText(m, id)])] : 'לא הונח בצד אף זוג.'),
       realReflection(m.cpA) ? h('p', {}, m.cpA.reflection) : null,
       h('p', { class: 'by' }, m.cpA.decided_by === 'human' ? 'הוחלט בידי אדם' : 'הוחלט אוטומטית, בלי חוקרת')));
@@ -137,23 +137,23 @@ function renderA(app, { keepFocus = false } = {}) {
   const persist = debounce(() => {
     if (live) { if (app.live) app.live.draftReflection = ta.value; return; }
     const ok = store.set(REFLECTION_KEY, ta.value);
-    status.textContent = ok ? 'נשמר בדפדפן שלך בלבד.' : 'הדפדפן חוסם שמירה מקומית; הטקסט יאבד ברענון.';
+    status.textContent = ok ? 'נשמר בדפדפן שלכם בלבד.' : 'הדפדפן חוסם שמירה מקומית; הטקסט יאבד ברענון.';
     status.classList.toggle('is-error', !ok);
   }, 400);
   ta.addEventListener('input', persist);
 
   const yours = h('div', { class: 'yours' },
-    h('h3', {}, live ? 'הרפלקציה שלך, לפני שההרצה ממשיכה' : 'והרפלקציה שלך'),
+    h('h3', {}, live ? 'הרפלקציה שלכם, לפני שההרצה ממשיכה' : 'והרפלקציה שלכם'),
     h('p', { class: 'muted' }, live
       ? `המאמר מבקש לכתוב כאן, לא לחשוב בלב: איזה דפוס עולה מהניגודים ששרדו ומאלה שנפלו, ומה הוא אומר על ההנחות שנכנסו לניתוח. הטקסט נשמר ברשומת ההרצה ${app.health && app.health.remote ? 'בשרת' : 'בשרת המקומי'}.`
-      : 'המאמר מבקש לכתוב כאן, לא לחשוב בלב: איזה דפוס עולה מהניגודים ששרדו ומאלה שנפלו, ומה הוא אומר על ההנחות שנכנסו לניתוח. הטקסט נשמר רק בדפדפן שלך.'),
-    h('div', { class: 'field' }, h('label', { for: 'reflection-a', class: 'sr-only' }, 'הרפלקציה שלך על נקודת עצירה א'), ta),
+      : 'המאמר מבקש לכתוב כאן, לא לחשוב בלב: איזה דפוס עולה מהניגודים ששרדו ומאלה שנפלו, ומה הוא אומר על ההנחות שנכנסו לניתוח. הטקסט נשמר רק בדפדפן שלכם.'),
+    h('div', { class: 'field' }, h('label', { for: 'reflection-a', class: 'sr-only' }, 'הרפלקציה שלכם על נקודת עצירה א'), ta),
     status);
 
   if (!live && app.setAside.size) {
     yours.append(h('div', { class: 'callout callout-warm setaside-note', id: 'setaside-note', role: 'note' },
-      h('p', {}, h('strong', {}, 'ההחלטה שלך נרשמה בדפדפן הזה בלבד. '),
-        `הנחת בצד: ${[...app.setAside].map((id) => pairText(m, id)).join('; ')}.`),
+      h('p', {}, h('strong', {}, 'ההחלטה שלכם נרשמה בדפדפן הזה בלבד. '),
+        `הנחתם בצד: ${[...app.setAside].map((id) => pairText(m, id)).join('; ')}.`),
       h('p', {}, 'שלבים 5 עד 9 שמוצגים כאן הוקלטו בלי ההחלטה הזאת, ולכן ציר שנבנה מזוג כזה עדיין מופיע בהם, מסומן. כדי לראות את ההשפעה שלה צריך להריץ את השיטה מחדש.')));
   }
 

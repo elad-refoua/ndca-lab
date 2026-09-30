@@ -74,7 +74,7 @@ function renderAxes(app) {
         h('span', { class: 'id' }, a.id),
         core.has(a.id) ? h('span', { class: 'badge badge-warm' }, 'ציר ליבה') : null,
         brittle ? h('span', { class: 'badge badge-quiet' }, 'ציר שביר') : statusBadge('populated', pts.length === 1 ? 'נקודת אמצע אחת' : `${pts.length} נקודות אמצע`),
-        aside.has(a.id) ? h('span', { class: 'badge badge-outline' }, 'הנחת את הזוג שלו בצד בעצירה א') : null),
+        aside.has(a.id) ? h('span', { class: 'badge badge-outline' }, 'הנחתם את הזוג שלו בצד בעצירה א') : null),
       h('p', { class: 'axis-def' }, (nm && nm.definition) || a.dimension || ''),
       axisGraphic({ poleA: a.pole_a, poleB: a.pole_b, status: mp.status, points: pts, numbered: true }),
       brittle ? h('p', { class: 'brittle-note' }, icon('info'), mp.note || 'לא נמצאו בנתונים עמדות בין הקצוות.') : null,

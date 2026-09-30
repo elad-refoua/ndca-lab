@@ -243,7 +243,7 @@ export function resultItem(r, app, { withRemoveToggle = null, compact = false } 
         ? h('span', { class: 'badge badge-ok' }, icon('check'), 'נמצא בנתונים')
         : h('span', { class: 'badge badge-danger' }, icon('x'), 'נפל'),
       removed ? h('span', { class: 'badge badge-warm' }, 'הונח בצד בעצירה א') : null,
-      aside && !removed ? h('span', { class: 'badge badge-warm' }, 'הנחת בצד (אצלך בלבד)') : null,
+      aside && !removed ? h('span', { class: 'badge badge-warm' }, 'הנחתם בצד (אצלכם בלבד)') : null,
       h('span', { class: 'id' }, r.contrast_id)),
     pairView(p),
     detail);
@@ -385,21 +385,21 @@ export function renderCheckpointStep(key, app) {
   const m = app.model;
   const box = h('div', {}, h('p', { class: 'pn-intro' }, cp.about));
   const recorded = key === 'A' ? m.cpA : m.cpB;
-  const ctaLabel = key === 'A' ? 'להחליט בעצמך: מה להניח בצד' : 'לבחור שם לכל ציר';
+  const ctaLabel = key === 'A' ? 'להחליט בעצמכם: מה להניח בצד' : 'לבחור שם לכל ציר';
   const turn = (lead, rest) => h('div', { class: 'callout callout-warm cp-turn' },
     h('p', {}, h('strong', {}, lead), ' ', rest),
     h('a', { class: 'btn btn-warm', href: cp.target }, ctaLabel, icon('arrowDown')));
   if (app.mode === 'replay') {
-    box.append(turn('תורך.', 'החוקרת עוצרת כאן ומחליטה. אפשר להחליט בעצמך בחלק של נקודת העצירה, או ללחוץ על הפעלה כדי להמשיך בהרצה.'));
+    box.append(turn('תורכם.', 'החוקרת עוצרת כאן ומחליטה. אפשר להחליט בעצמכם בחלק של נקודת העצירה, או ללחוץ על הפעלה כדי להמשיך בהרצה.'));
   } else if (!recorded) {
-    box.append(turn('ההרצה ממתינה להחלטה שלך.', 'היא תמשיך רק אחרי שתשלחו אותה.'));
+    box.append(turn('ההרצה ממתינה להחלטה שלכם.', 'היא תמשיך רק אחרי שתשלחו אותה.'));
   }
   if (key === 'A') {
     const rec = m.cpA;
     if (rec) {
       const removed = rec.removed_contrast_ids || [];
       box.append(h('div', { class: 'voice voice-human' },
-        h('h4', {}, icon('user'), app.mode === 'live' ? 'ההחלטה שלך' : 'מה החליטה החוקרת בהרצה הזאת'),
+        h('h4', {}, icon('user'), app.mode === 'live' ? 'ההחלטה שלכם' : 'מה החליטה החוקרת בהרצה הזאת'),
         h('p', {}, removed.length
           ? ['הונח בצד: ', removed.map((id, i) => { const p = m.pairOf(id); return [i ? '; ' : '', p ? `${p.label} / ${p.antithesis}` : id]; })]
           : 'לא הונח בצד אף זוג.'),

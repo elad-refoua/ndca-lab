@@ -26,8 +26,17 @@ export function parseTurns(text) {
   return turns;
 }
 
+/** "שנה אחת בתחום", "שנתיים בתחום", "8 שנים בתחום" (Hebrew counts one and two years with their own words). */
+export function yearsInFieldWords(n) {
+  if (!Number.isFinite(n) || n < 0) return '';
+  if (n === 0) return 'פחות משנה בתחום';
+  if (n === 1) return 'שנה אחת בתחום';
+  if (n === 2) return 'שנתיים בתחום';
+  return `${n} שנים בתחום`;
+}
+
 export function renderInterview(itv, { headingTag = 'h3', clamp = false } = {}) {
-  const years = Number.isFinite(itv.years_in_field) ? `${itv.years_in_field} שנים בתחום` : '';
+  const years = yearsInFieldWords(itv.years_in_field);
   const meta = [itv.role, years].filter(Boolean).join(', ');
   const body = h('div', { class: 'doc-body', id: `doc-body-${itv.id}` });
   const card = h('article', { class: 'doc-card', 'data-interview': itv.id, 'aria-label': `ראיון עם ${interviewLabel(itv)}` },
@@ -188,7 +197,7 @@ export function quoteButton(ref, app, { variant = '', showSource = true } = {}) 
   const btn = h('button', {
     type: 'button',
     class: cls,
-    'aria-label': `ציטוט מהראיון עם ${who}: ${ref.quote}. פתיחת הראיון במקום הזה`,
+    'aria-label': `ציטוט מהראיון עם ${who}: ${String(ref.quote).replace(/[.\s]+$/u, '')}. פתיחת הראיון במקום הזה`,
   }, ref.quote);
   if (showSource && variant !== 'inline') {
     const src = h('span', { class: 'q-src' }, icon('file'), `${who}, `, h('span', { class: 'id' }, ref.interview_id));
